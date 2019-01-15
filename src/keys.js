@@ -1,10 +1,10 @@
 module.exports = {
 
     database: {
-        host: 'localhost',
-        user: 'tonyurbina',
-        password: '3sLcztTov3VAphuu',
-        database: 'database_links'
+        host: 'us-cdbr-iron-east-01.cleardb.net',
+        user: 'b40936b399ee88',
+        password: 'ca4562a5',
+        database: 'heroku_e436cc44aa60455'
     }
 
 };
