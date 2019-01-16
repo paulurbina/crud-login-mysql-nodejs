@@ -47,10 +47,10 @@ router.get('/profile', isLoggedIn, (req, res) => {
  * 
  * LOGOUT
  */
-router.get('/logout', isNotLoggedIn,(req, res) => {
+router.get('/logout',(req, res) => {
     req.logout();
-    res.redirect('/signin');
-})
+    res.redirect('/');
+});
 
 
 

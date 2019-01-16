@@ -17,12 +17,12 @@ passport.use('local.signin', new LocalStrategy({
         const user = rows[0];
         const validPassword = await helpers.matchPassword(password, user.password);
         if(validPassword) {
-            done(null, user, req.flash('success', 'Welcome' + user.username));
+            done(null, user, req.flash('message_success', 'Welcome' + user.username));
         } else {
-            done(null, false, req.flash('error', 'Incorrect Password'));
+            done(null, false, req.flash('message_error', 'Incorrect Password'));
         }
     } else {
-        return done(null, false, req.flash('error', 'The Username does not exists'));
+        return done(null, false, req.flash('message_error', 'The Username does not exists'));
     }
 }));
 
