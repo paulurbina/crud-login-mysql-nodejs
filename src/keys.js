@@ -2,9 +2,9 @@ require('dotenv').config();
 
 module.exports = {
    database: {
-      host: 'localhost',
-      user: 'sistemas',
-      password: 'password',
-      database: 'dbuser'
+      host: '35.227.35.244',
+      user: 'root',
+      password: 'ikPyD42F5i9uw8N8',
+      database: 'database_links'
    }
 };

@@ -2,7 +2,7 @@ CREATE DATABASE database_links;
 
 --USER TABLE
 
-USE dbuser;
+USE database_links;
 
 CREATE TABLE users(
     id INT(11) NOT NULL,
