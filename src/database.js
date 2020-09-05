@@ -1,9 +1,9 @@
 const mysql = require('mysql');
-const  { promisify } = require('util');
+const { promisify } = require('util');
 
 const { database } = require('./keys');
 
-const pool = mysql.createPool(database);    
+const pool = mysql.createPool(database);
 
 pool.getConnection((err, connection) => {
     //SI HAY ERRORES
@@ -17,11 +17,12 @@ pool.getConnection((err, connection) => {
         if (err.code === 'ECONNREFUSED') {
             console.error('DATABASE CONNECTION WAS REFUSED');
         }
+    } else if (connection) {
+        //CONNECTION SUCCESS!!!
+        connection.release();
+        console.log('DB IS CONNECTED');
+        return;
     }
-    //SI NO, SE CONECTA
-    if (connection) connection.release();
-    console.log('DB IS CONNECTED');
-    return;
 });
 //CONVIRTIENDO CALLBACKS A PROMESAS
 pool.query = promisify(pool.query);
