@@ -2,7 +2,7 @@ const mysql = require('mysql');
 const { promisify } = require('util');
 
 const { database } = require('./keys');
-
+console.log('database', database);
 const pool = mysql.createPool(database);
 
 pool.getConnection((err, connection) => {
@@ -15,7 +15,7 @@ pool.getConnection((err, connection) => {
             console.error('DATABASE HAS TO MANY CONNECTIONS');
         }
         if (err.code === 'ECONNREFUSED') {
-            console.error(err)
+            // console.error(err)
             console.error('DATABASE CONNECTION WAS REFUSED');
         }
     }

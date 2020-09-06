@@ -5,24 +5,26 @@ services:
     restart: always
     ports:
       - "7000:8000"
-    depends_on:
-      - mysql
-    env_file:
-      - web-variables.env
+    # depends_on:
+    #   - mysql
     environment:
-      - MYSQL_HOST=mysql
-      - MYSQL_USER=moeuser
-      - MYSQL_PASS=moepass
+      - SOCKET_PATH=moe-mysql-app
+      - MYSQL_USER=root
+      - MYSQL_PASS=root
       - MYSQL_DB=database_links
+      - MYSQL_PORT=3306
+    links: 
+      - mysql:mysql
   mysql:
-    image: mysql:5.7
+    image: mysql:8.0.13
+    # command: --default-authentication-plugin=mysql_native_password
     environment:
-      MYSQL_ROOT_PASSWORD: root_test
-      MYSQL_USER: moeuser
+      MYSQL_ROOT_PASSWORD: root
+      # MYSQL_USER: moeuser
       MYSQL_DATABASE: database_links
-      MYSQL_PASSWORD: moepass
-    volumes:
-      - ./data:/data/db
-    # container_name: moe-mysql-app
+      # MYSQL_PASSWORD: moepass
+    # volumes:
+    #   - ./data:/data/db
+    container_name: moe-mysql-app
     ports:
       - "3306:3306"
