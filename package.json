@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "npm-update": "ncu -u",
-    "start": "node src",
-    "dev": "nodemon src"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
