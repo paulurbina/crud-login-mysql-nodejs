@@ -1,48 +1,52 @@
 version: "3.2"
+
 services:
   app:
-    build:
-      context: .
-    image: purbina/nodejs-mysql-app
-    restart: always
-    networks:
-      - frontend
-      - backend
+    build: .
+    container_name: NODEJS
     environment:
-      - MYSQL_HOST=moe-mysql-app
-      - MYSQL_USER=moeuser
-      - MYSQL_PASS=moepass
-      - MYSQL_DB=database_links
-    volumes:
-      - ./www/:/var/www/html/
-    ports:
-      - "30001:8005"
-    container_name: moe-nodejs-app
-  mysql:
-    image: mysql:5.7
-    networks:
-      - backend
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_USER=moeuser
-      - MYSQL_PASSWORD=moepass
-      - MYSQL_DATABASE=database_links
-    container_name: moe-mysql-app
-  
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:4.7
+      DB_HOST: mysql
+      DB_USER: root
+      DB_PASSWORD: password
+      DB_DATABASE: appdb
     depends_on:
       - mysql
-    networks:
-      - backend
     ports:
-      - "30002:80"
+      - "7000:7000"
+    restart: always
+    networks:
+      - my_network
+
+  mysql:
+    image: mysql:5.7
+    # restart: always
+    container_name: MYSQL
     environment:
-      - PMA_HOST=moe-mysql-app
-      - PMA_PORT= 3306
+      MYSQL_DATABASE: appdb
+      MYSQL_USER: example_user
+      MYSQL_PASSWORD: example_password
+      MYSQL_ROOT_PASSWORD: example_root_password
     volumes:
-      - /sessions
-    container_name: moe-phpmyadmin-app
+      - my_db:/var/lib/mysql
+    networks:
+      - my_network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    container_name: PHPMYADMIN
+    environment:
+      PMA_HOST: mysql
+      MYSQL_USER: useradmin
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: passwordroot
+    ports:
+      - "8080:80"
+    networks:
+      - my_network
+
 networks:
-  frontend:
-  backend:
+  my_network:
+
+volumes:
+  my_db:
